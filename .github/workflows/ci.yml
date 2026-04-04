@@ -18,7 +18,7 @@ jobs:
 
     env:
       AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_URL: ${{ secrets.SCRUM_DATABASE_URL }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       AUTH_DISCORD_ID: ${{ secrets.CLERK_SECRET_KEY }}
       AUTH_DISCORD_SECRET: ${{ secrets.CLERK_SECRET_KEY }}
@@ -29,7 +29,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
         with:
-          version: 10.4.1
+          version: 10.27.0
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
