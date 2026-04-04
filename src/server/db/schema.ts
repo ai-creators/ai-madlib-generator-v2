@@ -12,28 +12,7 @@ export const createTable = pgTableCreator(
   (name) => `ai-madlib-generator-v2_${name}`,
 );
 
-export const posts = createTable(
-  "post",
-  (d) => ({
-    id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
-    name: d.varchar({ length: 256 }),
-    createdById: d
-      .varchar({ length: 255 })
-      .notNull()
-      .references(() => users.id),
-    createdAt: d
-      .timestamp({ withTimezone: true })
-      .$defaultFn(() => /* @__PURE__ */ new Date())
-      .notNull(),
-    updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
-  }),
-  (t) => [
-    index("created_by_idx").on(t.createdById),
-    index("name_idx").on(t.name),
-  ],
-);
-
-export const users = createTable("user", (d) => ({
+export const users = createTable("users", (d) => ({
   id: d
     .varchar({ length: 255 })
     .notNull()
@@ -55,7 +34,7 @@ export const usersRelations = relations(users, ({ many }) => ({
 }));
 
 export const accounts = createTable(
-  "account",
+  "accounts",
   (d) => ({
     userId: d
       .varchar({ length: 255 })
@@ -83,7 +62,7 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
 }));
 
 export const sessions = createTable(
-  "session",
+  "sessions",
   (d) => ({
     sessionToken: d.varchar({ length: 255 }).notNull().primaryKey(),
     userId: d
@@ -100,7 +79,7 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
 }));
 
 export const verificationTokens = createTable(
-  "verification_token",
+  "verification_tokens",
   (d) => ({
     identifier: d.varchar({ length: 255 }).notNull(),
     token: d.varchar({ length: 255 }).notNull(),
@@ -108,3 +87,67 @@ export const verificationTokens = createTable(
   }),
   (t) => [primaryKey({ columns: [t.identifier, t.token] })],
 );
+
+export const adlibs = createTable("adlibs", (d) => ({
+  id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+  title: d.varchar({ length: 255 }).notNull(),
+  prompt: d.varchar({ length: 255 }).notNull(),
+  text: d.text().notNull(),
+  isHidden: d.boolean().notNull().default(false),
+  isPg: d.boolean().notNull().default(false),
+  temperature: d.real().notNull().default(0.7),
+  topP: d.real().notNull().default(1),
+  createdById: d
+    .varchar({ length: 255 })
+    .notNull()
+    .references(() => users.id),
+  createdAt: d
+    .timestamp({ withTimezone: true })
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+}));
+
+export const categories = createTable(
+  "categories",
+  (d) => ({
+    id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+    name: d.varchar({ length: 255 }).notNull(),
+    createdAt: d
+      .timestamp({ withTimezone: true })
+      .$defaultFn(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  }),
+  (t) => [index("categories_name_idx").on(t.name)],
+);
+
+export const adlibCategories = createTable(
+  "adlib_categories",
+  (d) => ({
+    adlibId: d
+      .integer()
+      .notNull()
+      .references(() => adlibs.id, { onDelete: "cascade" }),
+    categoryId: d
+      .integer()
+      .notNull()
+      .references(() => categories.id, { onDelete: "cascade" }),
+  }),
+  (t) => [primaryKey({ columns: [t.adlibId, t.categoryId] })],
+);
+
+export const adlibResults = createTable("adlib_results", (d) => ({
+  id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+  adlibId: d
+    .integer()
+    .notNull()
+    .references(() => adlibs.id, { onDelete: "cascade" }),
+  resultText: d.text().notNull(),
+  createdById: d
+    .varchar({ length: 255 })
+    .notNull()
+    .references(() => users.id),
+  createdAt: d
+    .timestamp({ withTimezone: true })
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+}));
