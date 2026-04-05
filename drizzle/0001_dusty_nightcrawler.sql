@@ -1,0 +1,1 @@
+ALTER TABLE "ai-madlib-generator-v2_adlibs" ALTER COLUMN "createdById" DROP NOT NULL;

@@ -12,6 +12,11 @@ import { toast } from "sonner";
 import * as z from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { api } from "@/trpc/react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircleIcon } from "lucide-react";
+import { routerConfig } from "@/router-config";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   prompt: z
@@ -21,6 +26,24 @@ const formSchema = z.object({
 });
 
 export default function CreateAdlibForm() {
+  const loadingToastId = React.useRef<string | number | undefined>(undefined);
+  const router = useRouter();
+
+  const createAdlib = api.adlib.create.useMutation({
+    onMutate: () => {
+      loadingToastId.current = toast.loading("Creating adlib...");
+    },
+    onSuccess: async (data) => {
+      toast.dismiss(loadingToastId.current);
+      toast.success("Adlib created successfully!");
+      router.push(routerConfig.adlibPlay.execute({ id: `${data}` }));
+    },
+    onError: (error) => {
+      toast.dismiss(loadingToastId.current);
+      toast.error(error.message || "Failed to create adlib");
+    },
+  });
+
   const form = useForm({
     defaultValues: {
       prompt: "",
@@ -29,20 +52,7 @@ export default function CreateAdlibForm() {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      toast("You submitted the following values:", {
-        description: (
-          <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-            <code>{JSON.stringify(value, null, 2)}</code>
-          </pre>
-        ),
-        position: "bottom-right",
-        classNames: {
-          content: "flex flex-col gap-2",
-        },
-        style: {
-          "--border-radius": "calc(var(--radius)  + 4px)",
-        } as React.CSSProperties,
-      });
+      await createAdlib.mutateAsync(value);
     },
   });
 
@@ -54,6 +64,15 @@ export default function CreateAdlibForm() {
       }}
       className="flex flex-col gap-5"
     >
+      {createAdlib.isError && (
+        <Alert variant="destructive">
+          <AlertCircleIcon />
+          <AlertTitle>Error Creating Madlib</AlertTitle>
+          <AlertDescription>
+            There was an error creating your madlib. Please try again.
+          </AlertDescription>
+        </Alert>
+      )}
       <FieldGroup>
         <form.Field name="prompt">
           {(field) => {
@@ -78,11 +97,7 @@ export default function CreateAdlibForm() {
           }}
         </form.Field>
       </FieldGroup>
-      <Button
-        type="submit"
-        className="w-fit"
-        disabled={form.state.isSubmitting}
-      >
+      <Button type="submit" className="w-fit" disabled={createAdlib.isPending}>
         Create Madlib
       </Button>
     </form>
