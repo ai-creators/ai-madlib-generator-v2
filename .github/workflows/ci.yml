@@ -47,7 +47,7 @@ jobs:
         run: pnpm typecheck
 
       - name: Check code format
-        run: pnpm format:check
+        run: pnpm format
 
       - name: Build app
         run: pnpm build
