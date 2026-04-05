@@ -5,7 +5,7 @@ import SideNav from "@/layouts/navbars/side-nav";
 export default function Home() {
   return (
     <Layout>
-      <div className="container mx-auto grid h-full grow grid-cols-12">
+      <div className="mx-auto grid h-full w-full max-w-7xl grow grid-cols-12">
         <aside className="hidden px-2 py-4 md:col-span-4 md:block lg:col-span-2">
           <SideNav />
         </aside>

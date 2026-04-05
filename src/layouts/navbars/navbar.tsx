@@ -9,7 +9,7 @@ export default async function Navbar() {
   const isAuthenticated = !!session;
   return (
     <nav className="flex border-b">
-      <div className="container mx-auto flex items-center gap-3 p-3">
+      <div className="mx-auto flex w-full max-w-7xl items-center gap-3 p-3">
         <Link href="/">
           <span className="text-sm font-semibold tracking-tight uppercase sm:text-base md:text-xl">
             AI MadLibs
