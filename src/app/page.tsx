@@ -1,3 +1,4 @@
+import CreateAdlibCard from "@/adlib/create-adlib-card";
 import { Button } from "@/components/ui/button";
 import Layout from "@/layouts/layout";
 import SideNav from "@/layouts/navbars/side-nav";
@@ -9,11 +10,8 @@ export default function Home() {
         <aside className="col-span-2 border-r">
           <SideNav />
         </aside>
-        <main className="col-span-8">
-          <div>
-            <h1>TESTING</h1>
-            <Button>Click ME</Button>
-          </div>
+        <main className="col-span-8 px-3 py-4">
+          <CreateAdlibCard />
         </main>
         <section className="col-span-2 border-l"></section>
       </div>
