@@ -63,8 +63,6 @@ export async function createMadlib(
     ...options,
   });
 
-  console.log("RESPONSE: ", response.output_text.trim());
-
   const raw = response.output_text?.trim();
   if (!raw) {
     throw new Error("OpenAI returned an empty response.");
