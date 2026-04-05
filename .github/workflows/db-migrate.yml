@@ -1,14 +1,16 @@
 name: DB Migrate
 
 on:
+    push:
+    branches:
+      - main
   pull_request:
-    types: [closed]
     branches:
       - main
 
 jobs:
   migrate:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     env:
