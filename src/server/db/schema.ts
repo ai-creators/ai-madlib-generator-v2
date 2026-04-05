@@ -1,5 +1,10 @@
 import { relations } from "drizzle-orm";
-import { index, pgTableCreator, primaryKey } from "drizzle-orm/pg-core";
+import {
+  index,
+  pgTableCreator,
+  primaryKey,
+  uniqueIndex,
+} from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
 
 /**
@@ -97,10 +102,7 @@ export const adlibs = createTable("adlibs", (d) => ({
   isPg: d.boolean().notNull().default(false),
   temperature: d.real().notNull().default(0.7),
   topP: d.real().notNull().default(1),
-  createdById: d
-    .varchar({ length: 255 })
-    .notNull()
-    .references(() => users.id),
+  createdById: d.varchar({ length: 255 }).references(() => users.id),
   createdAt: d
     .timestamp({ withTimezone: true })
     .$defaultFn(() => /* @__PURE__ */ new Date())
@@ -117,7 +119,7 @@ export const categories = createTable(
       .$defaultFn(() => /* @__PURE__ */ new Date())
       .notNull(),
   }),
-  (t) => [index("categories_name_idx").on(t.name)],
+  (t) => [uniqueIndex("categories_name_idx").on(t.name)],
 );
 
 export const adlibCategories = createTable(
