@@ -1,10 +1,11 @@
 import { type Metadata } from "next";
 import { Geist, Inter } from "next/font/google";
-
 import { TRPCReactProvider } from "@/trpc/react";
 import { cn } from "@/lib/utils";
+import "@/styles/globals.css";
+import { ThemeProvider } from "@/theme/theme-provider";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -21,9 +22,22 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={cn(geist.variable, "font-sans", inter.variable)}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn(geist.variable, "font-sans", inter.variable)}
+    >
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );

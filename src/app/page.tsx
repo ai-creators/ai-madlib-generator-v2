@@ -1,5 +1,24 @@
-export default async function Home() {
-  return <div>TESTING HELLO WORLD</div>;
+import { Button } from "@/components/ui/button";
+import Layout from "@/layouts/layout";
+import SideNav from "@/layouts/navbars/side-nav";
+
+export default function Home() {
+  return (
+    <Layout>
+      <div className="container mx-auto grid h-full grow grid-cols-12">
+        <aside className="col-span-2 border-r">
+          <SideNav />
+        </aside>
+        <main className="col-span-8">
+          <div>
+            <h1>TESTING</h1>
+            <Button>Click ME</Button>
+          </div>
+        </main>
+        <section className="col-span-2 border-l"></section>
+      </div>
+    </Layout>
+  );
 }
 
 // import Link from "next/link";
