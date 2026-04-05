@@ -30,13 +30,36 @@ export async function createMadlib(
       {
         role: "system",
         content:
-          "You write concise madlibs. Return valid JSON only with keys: title, madlib, isPg, categories. isPg property indicates if the madlib is suitable for all audiences, base that on the prompt and the madlib content. Do not wrap the JSON in code fences",
+          "You write concise madlibs. Return valid JSON only with keys: title, madlib, isPg, categories. \nBlanks in the madlib must use the format __wordtype__ (e.g. __noun__, __adjective__, __verb__). \nDo not wrap the JSON in code fences. isPg property indicates if the madlib is suitable for all audiences, base that on the prompt and the madlib content. Do not wrap the JSON in code fences",
       },
       {
         role: "user",
         content: `Create a madlib from this prompt: ${prompt}`,
       },
     ],
+    text: {
+      format: {
+        type: "json_schema",
+        name: "madlib_response",
+        schema: {
+          type: "object",
+          properties: {
+            title: { type: "string" },
+            madlib: { type: "string" },
+            isPg: { type: "boolean" },
+            categories: {
+              type: "array",
+              items: { type: "string" },
+              minItems: 1,
+              maxItems: 5,
+            },
+          },
+          required: ["title", "madlib", "isPg", "categories"],
+          additionalProperties: false,
+        },
+        strict: true,
+      },
+    },
     ...options,
   });
 

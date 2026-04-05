@@ -5,9 +5,19 @@ import { upsertCategories } from "./category.service";
 
 export async function saveMadlib(
   db: typeof Db,
-  input: { prompt: string },
-  options: RequestOptions,
-  userId?: string | null,
+  {
+    madlibResponse,
+    temperature,
+    topP,
+    userId,
+    prompt,
+  }: {
+    madlibResponse: Awaited<ReturnType<typeof createMadlib>>;
+    temperature: number;
+    topP: number;
+    userId?: string | null;
+    prompt: string;
+  },
 ): Promise<number> {
   const categoryIds = await upsertCategories(db, madlibResponse.categories);
 
@@ -15,11 +25,11 @@ export async function saveMadlib(
     .insert(adlibs)
     .values({
       title: madlibResponse.title,
-      prompt: input.prompt,
+      prompt,
       text: madlibResponse.madlib,
       isPg: madlibResponse.isPg,
-      temperature: options.temperature ?? 0.8,
-      topP: options.top_p ?? 0.9,
+      temperature,
+      topP,
       createdById: userId ?? null,
     })
     .returning({ id: adlibs.id });
