@@ -48,6 +48,11 @@ jobs:
           node-version: 24
           cache: pnpm
 
+      - name: Configure pnpm for Cypress
+        run: |
+          pnpm config set side-effects-cache false --location project
+          pnpm config set allow-build cypress --location project
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
