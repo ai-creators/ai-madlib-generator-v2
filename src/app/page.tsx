@@ -1,5 +1,4 @@
 import CreateAdlibCard from "@/adlib/create-adlib-card";
-import { Button } from "@/components/ui/button";
 import Layout from "@/layouts/layout";
 import SideNav from "@/layouts/navbars/side-nav";
 
@@ -7,13 +6,13 @@ export default function Home() {
   return (
     <Layout>
       <div className="container mx-auto grid h-full grow grid-cols-12">
-        <aside className="col-span-2 border-r">
+        <aside className="hidden px-2 py-4 md:col-span-4 md:block lg:col-span-2">
           <SideNav />
         </aside>
-        <main className="col-span-8 px-3 py-4">
+        <main className="col-span-12 px-3 py-4 md:col-span-8 md:border-l lg:col-span-8 lg:border-r">
           <CreateAdlibCard />
         </main>
-        <section className="col-span-2 border-l"></section>
+        <section className="hidden px-2 py-4 md:col-span-4 md:block lg:col-span-2"></section>
       </div>
     </Layout>
   );

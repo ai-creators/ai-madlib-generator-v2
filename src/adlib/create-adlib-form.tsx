@@ -2,7 +2,6 @@
 
 import {
   Field,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -49,16 +48,15 @@ export default function CreateAdlibForm() {
 
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        form.handleSubmit();
+        await form.handleSubmit();
       }}
       className="flex flex-col gap-5"
     >
       <FieldGroup>
-        <form.Field
-          name="prompt"
-          children={(field) => {
+        <form.Field name="prompt">
+          {(field) => {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
@@ -78,9 +76,13 @@ export default function CreateAdlibForm() {
               </Field>
             );
           }}
-        />
+        </form.Field>
       </FieldGroup>
-      <Button type="submit" className="w-fit">
+      <Button
+        type="submit"
+        className="w-fit"
+        disabled={form.state.isSubmitting}
+      >
         Create Madlib
       </Button>
     </form>

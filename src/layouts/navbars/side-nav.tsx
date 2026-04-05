@@ -3,7 +3,14 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { routerConfig } from "@/router-config";
-import { Home, FilePen, LayoutGrid, Tag, Bookmark, Settings } from "lucide-react";
+import {
+  Home,
+  FilePen,
+  LayoutGrid,
+  Tag,
+  Bookmark,
+  Settings,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -15,14 +22,16 @@ const navItems = [
   { label: "Saves", href: routerConfig.saves.path, icon: Bookmark },
 ];
 
-const bottomNavItems = [{ label: "Settings", href: routerConfig.settings.path, icon: Settings }];
+const bottomNavItems = [
+  { label: "Settings", href: routerConfig.settings.path, icon: Settings },
+];
 
 export default function SideNav() {
   const pathname = usePathname();
 
   return (
-    <aside className="flex h-full flex-col px-2 py-4">
-      <nav className="flex flex-1 flex-col gap-1">
+    <aside className="flex flex-col lg:h-full">
+      <nav className="flex flex-col gap-1 lg:flex-1">
         {navItems.map(({ label, href, icon: Icon }) => {
           const isActive = pathname === href;
           return (
