@@ -1,6 +1,5 @@
 import LoginForm from "@/auth/login-form";
-import { Button } from "@/components/ui/button";
-import { auth, signIn } from "@/server/auth";
+import { auth } from "@/server/auth";
 import { GalleryVerticalEnd } from "lucide-react";
 import { redirect } from "next/navigation";
 

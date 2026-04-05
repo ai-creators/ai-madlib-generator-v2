@@ -36,7 +36,7 @@ export default function CreateAdlibForm() {
     onSuccess: async (data) => {
       toast.dismiss(loadingToastId.current);
       toast.success("Adlib created successfully!");
-      router.push(routerConfig.adlibPlay.execute({ id: `${data}` }));
+      router.push(routerConfig.adlibPlay.execute({ id: data }));
     },
     onError: (error) => {
       toast.dismiss(loadingToastId.current);
@@ -90,6 +90,7 @@ export default function CreateAdlibForm() {
                   aria-invalid={isInvalid}
                   placeholder="Enter a prompt for your madlib"
                   autoComplete="off"
+                  data-cy="prompt-input"
                 />
                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
               </Field>
@@ -97,7 +98,12 @@ export default function CreateAdlibForm() {
           }}
         </form.Field>
       </FieldGroup>
-      <Button type="submit" className="w-fit" disabled={createAdlib.isPending}>
+      <Button
+        type="submit"
+        className="w-fit"
+        disabled={createAdlib.isPending}
+        data-cy="prompt-submit-btn"
+      >
         Create Madlib
       </Button>
     </form>

@@ -43,7 +43,7 @@ export default function AdlibFeed() {
     if (data.data.length < pagination.size) {
       setHasMore(false);
     }
-  }, [data]);
+  }, [data, appendAdlibs, pagination.page, pagination.size, resetAdlibs]);
 
   return (
     <Card>

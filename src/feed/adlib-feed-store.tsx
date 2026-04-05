@@ -22,7 +22,7 @@ export type AdlibFeedStore = AdlibFeedStoreState & AdlibFeedStoreActions;
 
 export const useAdlibFeedStore = create<AdlibFeedStore>()(
   devtools(
-    subscribeWithSelector((set, get) => ({
+    subscribeWithSelector((set) => ({
       feedOption: FeedOption.Latest,
       pagination: {
         page: 1,
