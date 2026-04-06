@@ -41,7 +41,7 @@ export const adlibRouter = createTRPCRouter({
             madlibResponse.madlib,
           ]);
 
-          isPg = moderation.isPg;
+          isPg = !moderation.flagged;
         } catch (error) {
           console.error("PG moderation check failed", error);
         }
