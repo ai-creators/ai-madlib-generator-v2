@@ -96,6 +96,7 @@ export async function moderateForPg(
   if (!result) {
     throw new Error("OpenAI moderation returned no results.");
   }
+
   const categories = result.categories;
 
   const blocked: string[] = [];
