@@ -1,11 +1,14 @@
 import z from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { getAdlibs, saveMadlib } from "@/server/services/adlib.service";
-import { createMadlib } from "@/server/lib/openai";
+import { createMadlib, moderateForPg } from "@/server/lib/openai";
 import { FeedOption } from "@/feed/feed-option";
+import { featureToggles } from "@/server/db/schema";
+import { desc, eq } from "drizzle-orm";
 
 const defaultTemperature = 0.8;
 const defaultTopP = 0.9;
+const pgModerationToggleName = "pg_moderation";
 
 export const adlibRouter = createTRPCRouter({
   create: publicProcedure
@@ -21,8 +24,34 @@ export const adlibRouter = createTRPCRouter({
         temperature: defaultTemperature,
       });
 
+      let isPg = madlibResponse.isPg;
+
+      const [pgModerationToggle] = await ctx.db
+        .select({ isEnabled: featureToggles.isEnabled })
+        .from(featureToggles)
+        .where(eq(featureToggles.name, pgModerationToggleName))
+        .orderBy(desc(featureToggles.createdAt))
+        .limit(1);
+
+      if (pgModerationToggle?.isEnabled) {
+        try {
+          const moderation = await moderateForPg([
+            input.prompt,
+            madlibResponse.title,
+            madlibResponse.madlib,
+          ]);
+
+          isPg = moderation.isPg;
+        } catch (error) {
+          console.error("PG moderation check failed", error);
+        }
+      }
+
       return saveMadlib(ctx.db, {
-        madlibResponse,
+        madlibResponse: {
+          ...madlibResponse,
+          isPg,
+        },
         temperature: defaultTemperature,
         topP: defaultTopP,
         userId: ctx.session?.user?.id,

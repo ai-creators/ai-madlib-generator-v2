@@ -1,6 +1,6 @@
-import { type db as Db } from "@/server/db";
+import { type db as database } from "@/server/db";
 import { adlibCategories, adlibs, categories } from "@/server/db/schema";
-import { createMadlib, type RequestOptions } from "@/server/lib/openai";
+import { type createMadlib } from "@/server/lib/openai";
 import { upsertCategories } from "./category.service";
 import { FeedOption } from "@/feed/feed-option";
 import { asc, desc, eq, lt, sql } from "drizzle-orm";
@@ -8,7 +8,7 @@ import type { PageResult } from "@/common/page-result";
 import type { PageRequest } from "@/common/page-request";
 
 export async function getAdlibs(
-  db: typeof Db,
+  db: typeof database,
   {
     page,
     size,
@@ -61,7 +61,7 @@ export async function getAdlibs(
 }
 
 export async function saveMadlib(
-  db: typeof Db,
+  db: typeof database,
   {
     madlibResponse,
     temperature,

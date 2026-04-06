@@ -77,3 +77,45 @@ export async function createMadlib(
 
   return madlibResponseSchema.parse(parsed);
 }
+
+type PgModerationResult = {
+  isPg: boolean;
+  blockedCategories: string[];
+  flagged: boolean;
+};
+
+export async function moderateForPg(
+  input: string | string[],
+): Promise<PgModerationResult> {
+  const moderation = await openai.moderations.create({
+    model: "omni-moderation-latest",
+    input,
+  });
+
+  const result = moderation.results[0];
+  if (!result) {
+    throw new Error("OpenAI moderation returned no results.");
+  }
+  const categories = result.categories;
+
+  const blocked: string[] = [];
+  if (categories.sexual) blocked.push("sexual");
+  if (categories["sexual/minors"]) blocked.push("sexual_minors");
+  if (categories.violence) blocked.push("violence");
+  if (categories["violence/graphic"]) blocked.push("violence_graphic");
+  if (categories.hate) blocked.push("hate");
+  if (categories["hate/threatening"]) blocked.push("hate_threatening");
+  if (categories["harassment/threatening"])
+    blocked.push("harassment_threatening");
+  if (categories["self-harm"]) blocked.push("self_harm");
+  if (categories["self-harm/instructions"])
+    blocked.push("self_harm_instructions");
+  if (categories.illicit) blocked.push("illicit");
+  if (categories["illicit/violent"]) blocked.push("illicit_violent");
+
+  return {
+    isPg: blocked.length === 0,
+    blockedCategories: blocked,
+    flagged: result.flagged,
+  };
+}

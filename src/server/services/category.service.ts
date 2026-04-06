@@ -1,9 +1,9 @@
 import { sql } from "drizzle-orm";
-import { type db as Db } from "@/server/db";
+import { db as database } from "@/server/db";
 import { categories } from "@/server/db/schema";
 
 export async function upsertCategories(
-  db: typeof Db,
+  db: typeof database,
   names: string[],
 ): Promise<number[]> {
   if (names.length === 0) return [];
