@@ -97,12 +97,8 @@
           "name": "ai-madlib-generator-v2_accounts_userId_ai-madlib-generator-v2_users_id_fk",
           "tableFrom": "ai-madlib-generator-v2_accounts",
           "tableTo": "ai-madlib-generator-v2_users",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -110,10 +106,7 @@
       "compositePrimaryKeys": {
         "ai-madlib-generator-v2_accounts_provider_providerAccountId_pk": {
           "name": "ai-madlib-generator-v2_accounts_provider_providerAccountId_pk",
-          "columns": [
-            "provider",
-            "providerAccountId"
-          ]
+          "columns": ["provider", "providerAccountId"]
         }
       },
       "uniqueConstraints": {},
@@ -144,12 +137,8 @@
           "name": "ai-madlib-generator-v2_adlib_categories_adlibId_ai-madlib-generator-v2_adlibs_id_fk",
           "tableFrom": "ai-madlib-generator-v2_adlib_categories",
           "tableTo": "ai-madlib-generator-v2_adlibs",
-          "columnsFrom": [
-            "adlibId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["adlibId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -157,12 +146,8 @@
           "name": "ai-madlib-generator-v2_adlib_categories_categoryId_ai-madlib-generator-v2_categories_id_fk",
           "tableFrom": "ai-madlib-generator-v2_adlib_categories",
           "tableTo": "ai-madlib-generator-v2_categories",
-          "columnsFrom": [
-            "categoryId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["categoryId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -170,10 +155,7 @@
       "compositePrimaryKeys": {
         "ai-madlib-generator-v2_adlib_categories_adlibId_categoryId_pk": {
           "name": "ai-madlib-generator-v2_adlib_categories_adlibId_categoryId_pk",
-          "columns": [
-            "adlibId",
-            "categoryId"
-          ]
+          "columns": ["adlibId", "categoryId"]
         }
       },
       "uniqueConstraints": {},
@@ -233,12 +215,8 @@
           "name": "ai-madlib-generator-v2_adlib_results_adlibId_ai-madlib-generator-v2_adlibs_id_fk",
           "tableFrom": "ai-madlib-generator-v2_adlib_results",
           "tableTo": "ai-madlib-generator-v2_adlibs",
-          "columnsFrom": [
-            "adlibId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["adlibId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -246,12 +224,8 @@
           "name": "ai-madlib-generator-v2_adlib_results_createdById_ai-madlib-generator-v2_users_id_fk",
           "tableFrom": "ai-madlib-generator-v2_adlib_results",
           "tableTo": "ai-madlib-generator-v2_users",
-          "columnsFrom": [
-            "createdById"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["createdById"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -348,12 +322,8 @@
           "name": "ai-madlib-generator-v2_adlibs_createdById_ai-madlib-generator-v2_users_id_fk",
           "tableFrom": "ai-madlib-generator-v2_adlibs",
           "tableTo": "ai-madlib-generator-v2_users",
-          "columnsFrom": [
-            "createdById"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["createdById"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -516,12 +486,8 @@
           "name": "ai-madlib-generator-v2_sessions_userId_ai-madlib-generator-v2_users_id_fk",
           "tableFrom": "ai-madlib-generator-v2_sessions",
           "tableTo": "ai-madlib-generator-v2_users",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -603,10 +569,7 @@
       "compositePrimaryKeys": {
         "ai-madlib-generator-v2_verification_tokens_identifier_token_pk": {
           "name": "ai-madlib-generator-v2_verification_tokens_identifier_token_pk",
-          "columns": [
-            "identifier",
-            "token"
-          ]
+          "columns": ["identifier", "token"]
         }
       },
       "uniqueConstraints": {},

@@ -45,4 +45,4 @@ const main = async () => {
   await client.end();
 };
 
-main();
+void main();

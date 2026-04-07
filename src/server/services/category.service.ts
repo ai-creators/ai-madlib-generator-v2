@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { db as database } from "@/server/db";
+import type { db as database } from "@/server/db";
 import { categories } from "@/server/db/schema";
 
 export async function upsertCategories(
