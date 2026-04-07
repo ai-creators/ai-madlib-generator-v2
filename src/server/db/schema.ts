@@ -153,3 +153,17 @@ export const adlibResults = createTable("adlib_results", (d) => ({
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
 }));
+
+export const featureToggles = createTable(
+  "feature_toggles",
+  (d) => ({
+    id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+    name: d.varchar({ length: 255 }).notNull(),
+    isEnabled: d.boolean().notNull().default(false),
+    createdAt: d
+      .timestamp({ withTimezone: true })
+      .$defaultFn(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  }),
+  (t) => [uniqueIndex("feature_toggles_name_idx").on(t.name)],
+);
