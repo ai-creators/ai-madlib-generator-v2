@@ -40,3 +40,6 @@ jobs:
 
       - name: Run DB migrations
         run: pnpm db:migrate
+
+      - name: Run DB seed
+        run: pnpm db:seed

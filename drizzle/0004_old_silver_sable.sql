@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "feature_toggles_name_idx" ON "ai-madlib-generator-v2_feature_toggles" USING btree ("name");
