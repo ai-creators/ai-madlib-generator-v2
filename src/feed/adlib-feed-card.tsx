@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { formatAdlibDate } from "@/lib/utils";
+import { formatAdlibDate } from "@/lib/date";
 import { routerConfig } from "@/router-config";
 import type { RouterOutputs } from "@/trpc/react";
 import Link from "next/link";
