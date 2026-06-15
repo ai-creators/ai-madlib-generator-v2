@@ -16,12 +16,6 @@ export default async function Navbar() {
           </span>
         </Link>
 
-        <nav className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href={routerConfig.viz.path}>Visualizations</Link>
-          </Button>
-        </nav>
-
         <ul className="ml-auto flex items-center gap-3">
           <li>
             <Button variant="default" size="lg" asChild>
