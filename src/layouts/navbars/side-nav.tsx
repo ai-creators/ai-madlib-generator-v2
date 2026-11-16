@@ -10,6 +10,7 @@ import {
   Tag,
   Bookmark,
   Settings,
+  BarChart2,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -20,6 +21,7 @@ const navItems = [
   { label: "Browse", href: routerConfig.browse.path, icon: LayoutGrid },
   { label: "Categories", href: routerConfig.categories.path, icon: Tag },
   { label: "Saves", href: routerConfig.saves.path, icon: Bookmark },
+  { label: "Visualizations", href: routerConfig.viz.path, icon: BarChart2 },
 ];
 
 const bottomNavItems = [

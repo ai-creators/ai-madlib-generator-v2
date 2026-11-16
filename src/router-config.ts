@@ -21,4 +21,5 @@ export const routerConfig = {
   logOut: { path: "/logout" },
   saves: { path: "/saves" },
   settings: { path: "/settings" },
+  viz: { path: "/viz" },
 };
